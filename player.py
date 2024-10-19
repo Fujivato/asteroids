@@ -1,7 +1,7 @@
 import pygame
 from circleshape import *
 from constants import *
-from containers import *
+from containers import updatable, drawable
 
 class Player(CircleShape):
     containers = (updatable, drawable)

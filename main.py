@@ -2,6 +2,16 @@ import pygame
 from constants import *
 from circleshape import *
 from player import *
+from asteroid import *
+from asteroidfield import *
+
+def init_player():
+    player_x_pos = SCREEN_WIDTH/2
+    player_y_pos = SCREEN_HEIGHT/2
+    player = Player(player_x_pos, player_y_pos) 
+
+def init_asteroid_field():
+    asteroid_field = AsteroidField()
 
 def main():
     print("Starting asteroids!")
@@ -13,15 +23,16 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.DOUBLEBUF | pygame.HWSURFACE)
     pygame.display.set_caption("boot.dev: Asteroids!")
     
+    # initialise the player
+    init_player()
+    
+    # initialise the asteroid field
+    init_asteroid_field()
+    
     # main game loop
     game_running = True
     game_clock = pygame.time.Clock()
     delta_time = 0
- 
-    # initialise the player
-    player_x_pos = SCREEN_WIDTH/2
-    player_y_pos = SCREEN_HEIGHT/2
-    player = Player(player_x_pos, player_y_pos) 
     
     # run the game
     while game_running:
