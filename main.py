@@ -21,7 +21,7 @@ def main():
     # initialise the player
     player_x_pos = SCREEN_WIDTH/2
     player_y_pos = SCREEN_HEIGHT/2
-    player = Player(player_x_pos, player_y_pos)
+    player = Player(player_x_pos, player_y_pos) 
     
     # run the game
     while game_running:
@@ -32,13 +32,17 @@ def main():
         # update the delta time:
         delta_time = game_clock.tick(60)/1000
         
-        # update objects
-        player.update(delta_time)
+        # update assets in "updatable" container
+        for updatable_asset in updatable:
+            updatable_asset.update(delta_time)
                 
-        # render objects
+        # refresh screen
         black = pygame.Color((0,0,0))
         view = screen.fill(color=black)
-        player.draw(screen)
+        
+        # render assets in the "drawable" container
+        for drawable_asset in drawable:
+            drawable_asset.draw(screen)
         
         # flip the buffers
         pygame.display.flip()
