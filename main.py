@@ -45,6 +45,12 @@ def main():
                 
         # check for collisions:
         for asteroid in asteroids:
+            for bullet in bullets:
+                if asteroid.is_colliding_with(bullet):
+                    asteroid.split()
+                    bullet.kill()
+                pass
+            
             if asteroid.is_colliding_with(player):
                 raise SystemExit("Game over!")
         
