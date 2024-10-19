@@ -8,27 +8,23 @@ from asteroidfield import *
 def init_player():
     player_x_pos = SCREEN_WIDTH/2
     player_y_pos = SCREEN_HEIGHT/2
-    player = Player(player_x_pos, player_y_pos) 
+    return Player(player_x_pos, player_y_pos) 
 
 def init_asteroid_field():
-    asteroid_field = AsteroidField()
+    return AsteroidField()
 
 def main():
     print("Starting asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
+    player = init_player() # initialise the player
+    asteroid_field = init_asteroid_field() # initialise the asteroid field
     
     # initizalize pygame
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.DOUBLEBUF | pygame.HWSURFACE)
     pygame.display.set_caption("boot.dev: Asteroids!")
-    
-    # initialise the player
-    init_player()
-    
-    # initialise the asteroid field
-    init_asteroid_field()
-    
+        
     # main game loop
     game_running = True
     game_clock = pygame.time.Clock()
@@ -47,6 +43,11 @@ def main():
         for updatable_asset in updatable:
             updatable_asset.update(delta_time)
                 
+        # check for collisions:
+        for asteroid in asteroids:
+            if asteroid.is_colliding_with(player):
+                raise SystemExit("Game over!")
+        
         # refresh screen
         black = pygame.Color((0,0,0))
         view = screen.fill(color=black)
